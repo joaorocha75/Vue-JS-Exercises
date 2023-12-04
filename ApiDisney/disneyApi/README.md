@@ -1,6 +1,6 @@
 # disneyApi
 
-This template should help get you started developing with Vue 3 in Vite.
+Vue project, fetching a Disney api
 
 ## Recommended IDE Setup
 

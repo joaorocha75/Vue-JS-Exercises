@@ -1,0 +1,45 @@
+<template>
+    <div>
+        <h1>Detalhes do Carro</h1>
+        <img :src="carro.image" style="width:100px; height:100px" />
+        <h2>Marca:{{ carro.brand }}</h2>
+        <p>Modelo:{{ carro.model }}</p>
+        <p>Ano:{{ carro.year }}</p>
+        <p>Preço:{{ carro.price }}€</p>
+        <p>Cidade: {{ carro.city }}</p>
+        <p>Descrição: {{ carro.description }}</p>
+        <button @click="adicionarAoCarrinho(carro.id)">
+            Adicionar Ao Carrinho
+        </button>
+    </div>
+</template>
+
+<script>
+import { useCarStore } from '../stores/counter.js';
+    export default {
+        data() {
+            return {
+                carStore: useCarStore(),
+                carro: null,
+            }
+        },
+        async created() {
+            try {
+                await this.carStore.fetchCarro(this.$route.params.id);
+                this.carro = this.carStore.getCarro;
+                console.log(this.carro);
+            } catch (error) {
+                alert(error.message);
+            }
+        },
+        methods: {
+            adicionarAoCarrinho(id) {
+                this.carStore.adicionarAoCarrinho(id);
+            }
+        },
+    }
+</script>
+
+<style lang="scss" scoped>
+
+</style>

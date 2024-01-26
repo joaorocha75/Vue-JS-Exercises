@@ -8,8 +8,9 @@
         <p>Preço:{{ carro.price }}€</p>
         <p>Cidade: {{ carro.city }}</p>
         <p>Descrição: {{ carro.description }}</p>
-        <button @click="adicionarAoCarrinho(carro.id)">
-            Adicionar Ao Carrinho
+        <br>
+        <button>
+            <router-link :to="{ name: 'catalogo' }">Voltar</router-link>
         </button>
     </div>
 </template>
@@ -30,11 +31,6 @@ import { useCarStore } from '../stores/counter.js';
                 console.log(this.carro);
             } catch (error) {
                 alert(error.message);
-            }
-        },
-        methods: {
-            adicionarAoCarrinho(id) {
-                this.carStore.adicionarAoCarrinho(id);
             }
         },
     }

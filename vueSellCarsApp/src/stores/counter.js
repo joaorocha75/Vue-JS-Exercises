@@ -45,5 +45,12 @@ export const useCarStore = defineStore('carros', {
       this.carrinho = this.carrinho.filter((carro) => carro.id !== id)
       localStorage.setItem('carrinho', JSON.stringify(this.carrinho))
     },
+    toogleCarrinho(id) {
+      if(this.carrinho.find(carro => carro.id === id)) {
+        this.carrinho = this.carrinho.filter((carro) => carro.id !== id)
+      } else {
+        this.carrinho.push(id)
+      }
+    }
   },
 })

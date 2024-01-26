@@ -8,6 +8,7 @@
     <button>
       <router-link :to="{ name: 'carrinho' }">Ver Carrinho</router-link>
     </button>
+    <br><br>
     <div v-for="carro in filteredCars" :key="carro.id">
       <img :src="carro.image" style="width:100px; height:100px" />
       <h2>Marca:{{ carro.brand }}</h2>
@@ -16,6 +17,10 @@
       <p>Preço:{{ carro.price }}€</p>
       <p>Cidade: {{ carro.city }}</p>
       <router-link :to="{ name: 'carro', params: { id: carro.id } }">Ver mais</router-link>
+      <br>
+      <button @click="addCarrinho(carro)">
+        {{ inCarrinho(carro) ? 'Remover do Carrinho' : 'Adicionar ao Carrinho' }}
+      </button>
     </div>
   </div>
 </template>
@@ -38,12 +43,15 @@ import { useCarStore } from '../stores/counter.js';
       }
     },
     methods: {
-      verMais(carro) {
-        this.$router.push({ name: 'carro', params: { id: carro.id } });
-      },
       filterByName() {
         this.carStore.filterByName(this.search);
       },
+      inCarrinho(carro) {
+        return this.carStore.carrinho.includes(carro);
+      },
+      addCarrinho(carro) {
+        this.carStore.toogleCarrinho(carro);
+      }
     },
     computed: {
       filteredCars() {
@@ -56,6 +64,9 @@ import { useCarStore } from '../stores/counter.js';
           return b.price - a.price
         });
       },
+      carrinho() {
+        return this.carStore.getCarrinho;
+      }
     },
   }
 </script>

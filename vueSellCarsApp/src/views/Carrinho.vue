@@ -11,6 +11,8 @@
         <br>
         <p>Total: {{ total }}€</p>
         <br>
+        <button @click="checkOut">CheckOUT</button>
+        <br>
         <button>
             <router-link :to="{ name: 'catalogo' }">Voltar</router-link>
         </button>
@@ -42,7 +44,12 @@ export default {
             this.carrinho = this.carStore.getCarrinho;
             this.total = this.carStore.getTotal;   
         },
-    },
+        checkOut() {
+            this.carStore.checkOut();
+            this.carrinho = this.carStore.getCarrinho;
+            this.total = this.carStore.getTotal;
+        }
+    }
 };
 </script>
 

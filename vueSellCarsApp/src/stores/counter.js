@@ -51,6 +51,20 @@ export const useCarStore = defineStore('carros', {
       } else {
         this.carrinho.push(id)
       }
+    },
+    checkOut() {
+      this.carrosComprados.push({ carrinho: this.carrinho, data: new Date() });
+      console.log(this.carros);
+      //os carros que estão no carrinho são removidos do carros
+      try {
+        this.carros = this.carros.filter((carro) => !this.carrinho.some(c => c.id === carro.id));
+      } catch (error) {
+        console.error('Error fetching cars', error);
+      }
+      // Limpa o carrinho
+      this.carrinho = [];
+      console.log(this.carrosComprados);
     }
+    
   },
 })
